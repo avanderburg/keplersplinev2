@@ -159,7 +159,7 @@ def kepler_spline(time, flux, bkspace=1.5, maxiter=5, outlier_cut=3, input_mask 
   # Mask indicating the points used to fit the spline.
   mask = None
 
-  if np.all(input_mask == None): input_mask = np.ones_like(time, dtype=np.bool)
+  if np.all(input_mask == None): input_mask = np.ones_like(time, dtype=bool)
 
   for _ in range(maxiter):
     if spline is None:
@@ -285,7 +285,7 @@ def choose_kepler_spline(all_time,
   if not scaled_diffs.size:
     best_spline = [np.array([np.nan] * len(f)) for f in all_flux]
     metadata.light_curve_mask = [
-        np.zeros_like(f, dtype=np.bool) for f in all_flux
+        np.zeros_like(f, dtype=bool) for f in all_flux
     ]
     return best_spline, metadata
 
@@ -300,7 +300,7 @@ def choose_kepler_spline(all_time,
   if np.all(all_input_mask == None): 
         all_input_mask = []
         for eachtime in all_time:
-            all_input_mask.append(np.ones_like(eachtime, dtype=np.bool))
+            all_input_mask.append(np.ones_like(eachtime, dtype=bool))
             
     
   for bkspace in bkspaces:
@@ -323,7 +323,7 @@ def choose_kepler_spline(all_time,
         if verbose:
           warnings.warn(str(e))
         spline.append(np.array([np.nan] * len(flux)))
-        light_curve_mask.append(np.zeros_like(flux, dtype=np.bool))
+        light_curve_mask.append(np.zeros_like(flux, dtype=bool))
         continue
       except SplineError as e:
         # It's expected to get a SplineError occasionally for small values of
@@ -374,10 +374,10 @@ def choose_kepler_spline(all_time,
     # insufficient points.
     best_spline = [np.array([np.nan] * len(f)) for f in all_flux]
     metadata.light_curve_mask = [
-        np.zeros_like(f, dtype=np.bool) for f in all_flux
+        np.zeros_like(f, dtype=bool) for f in all_flux
     ]
     metadata.input_light_curve_mask = [
-        np.zeros_like(f, dtype=np.bool) for f in all_flux
+        np.zeros_like(f, dtype=bool) for f in all_flux
     ]
     
 
